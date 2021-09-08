@@ -26,11 +26,11 @@ class HomePage extends StatelessWidget {
               SizedBox(height: 50,),
               _textRol(),
               SizedBox(height: 50,),
-              _imageTypeUser(context, 'assets/img/pasajero.png'),
+              _imageTypeUser(context, 'assets/img/pasajero.png', 'client'),
               SizedBox(height: 10,),
               _textTypeUser('Cliente'),
               SizedBox(height: 30,),
-              _imageTypeUser(context, 'assets/img/driver.png'),
+              _imageTypeUser(context, 'assets/img/driver.png', 'driver'),
               SizedBox(height: 10,),
                 _textTypeUser('Conductor')
             ],
@@ -68,9 +68,11 @@ class HomePage extends StatelessWidget {
 }
 
 
-  Widget _imageTypeUser(BuildContext context, String path){
+  Widget _imageTypeUser(BuildContext context, String path, String typeUser){
     return GestureDetector(
-      onTap: _con.goToLoginPage,
+      onTap: (){
+        _con.goToLoginPage(typeUser);
+      },
       child: CircleAvatar(
         backgroundImage: AssetImage(path),
         radius: 50,

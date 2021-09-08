@@ -2,21 +2,21 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
+import 'package:uber_clone/src/pages/client/register/client_register_controller.dart';
 import 'package:uber_clone/src/pages/pages.login/login_controller.dart';
+import 'package:uber_clone/src/pages/client/register/client_register_controller.dart';
 import 'package:uber_clone/src/utils/colors.dart' as utils;
-
 import 'package:uber_clone/src/widgets/button_app.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({Key key}) : super(key: key);
+class ClientRegisterPage extends StatefulWidget {
 
   @override
-  _LoginPageState createState() => _LoginPageState();
+  _ClientRegisterPageState createState() => _ClientRegisterPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _ClientRegisterPageState extends State<ClientRegisterPage> {
 
-  LoginController _con = new LoginController();
+  ClientRegisterController _con = new ClientRegisterController();
   @override
   void initState() {
     // TODO: implement initState
@@ -37,42 +37,46 @@ class _LoginPageState extends State<LoginPage> {
         child: Column(
           children:[
             _bannerApp(),
-            _textDescription(),
             _textLogin(),
-            SizedBox(height: MediaQuery.of(context).size.height*0.17),
+
+            _textFieldUserName(),
             _textFieldEmail(),
             _textFieldPassword(),
-            _buttonLogin(),
-            _textDontHaveAccount()
+            _textFieldConfirmPassword(),
+            _buttonRegister(),
+
           ],
         ),
       ),
     );
   }
-  Widget _textDontHaveAccount(){
-    return GestureDetector(
-      onTap: _con.goToRegisterPage,
-      child: Container(
-        margin: EdgeInsets.only(bottom: 50),
-        child: Text(
-          'No tienes cuenta?',
-          style: TextStyle(
-            fontSize: 15,
-            color: Colors.grey
-          ),
-        ),
-      ),
-    ) ;
-  }
 
-  Widget _buttonLogin(){
+
+  Widget _buttonRegister(){
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 30, vertical: 30),
       child: ButtonApp(
-          onPressed: _con.login,
-          text: 'Iniciar Sesion',
+          onPressed: _con.register,
+          text: 'Registrar ahora',
           color: utils.Colors.uberCloneColor,
           textColor: Colors.white,
+      ),
+    );
+  }
+
+  Widget _textFieldUserName(){
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+      child: TextField(
+        controller: _con.userNameController,
+        decoration: InputDecoration(
+          hintText: 'Pepito Perez',
+          labelText: 'Nombre de Usuario',
+          suffixIcon: Icon(
+            Icons.person_outline,
+            color: utils.Colors.uberCloneColor,
+          ),
+        ),
       ),
     );
   }
@@ -94,6 +98,7 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
+
   Widget _textFieldPassword(){
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
@@ -111,34 +116,37 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-
-
-  Widget _textDescription(){
+  Widget _textFieldConfirmPassword(){
     return Container(
-      alignment: Alignment.centerLeft,
-      margin: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
-      child: Text(
-          'Continua con tu',
-        style: TextStyle(
-          color: Colors.black54,
-          fontSize: 24,
-          fontFamily: 'NimbusSans'
+      margin: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+      child: TextField(
+        obscureText: true,
+        controller: _con.confirmPasswordController,
+        decoration: InputDecoration(
+          labelText: 'Confirmar contraseña',
+          suffixIcon: Icon(
+            Icons.lock_open_outlined,
+            color: utils.Colors.uberCloneColor,
+          ),
         ),
       ),
     );
   }
 
 
+
+
+
   Widget _textLogin(){
     return Container(
       alignment: Alignment.centerLeft,
-      margin: EdgeInsets.symmetric(horizontal: 30),
+      margin: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
       child: Text(
-        'Login',
+        'REGISTRO',
         style: TextStyle(
           color: Colors.black,
           fontWeight: FontWeight.bold,
-          fontSize: 28
+          fontSize: 25
         ),
       ),
     );
